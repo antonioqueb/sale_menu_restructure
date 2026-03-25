@@ -1,10 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- OCULTAR "Products" - solo admin de ventas -->
+
+    <!-- ============================================================ -->
+    <!-- Restringir Products y Reporting solo a administradores       -->
+    <!-- Se conserva parent= para que NO se muevan al menú raíz      -->
+    <!-- ============================================================ -->
+
+    <!-- Products: solo visible para administradores de ventas -->
     <menuitem id="sale.product_menu_catalog"
+              parent="sale.sale_menu_root"
               groups="sales_team.group_sale_manager"/>
 
-    <!-- OCULTAR "Reporting" - solo admin de ventas -->
+    <!-- Reporting: solo visible para administradores de ventas -->
     <menuitem id="sale.menu_sale_report"
+              parent="sale.sale_menu_root"
               groups="sales_team.group_sale_manager"/>
+
+    <!-- ============================================================ -->
+    <!-- Clientes como menú principal en Ventas                       -->
+    <!-- ============================================================ -->
+    <record id="action_sale_customers" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,kanban,form,activity</field>
+        <field name="domain">[('customer_rank', '&gt;', 0)]</field>
+        <field name="context">{'default_customer_rank': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new customer!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_sale_customers_root"
+              name="Customers"
+              parent="sale.sale_menu_root"
+              action="action_sale_customers"
+              sequence="3"/>
+
 </odoo>
