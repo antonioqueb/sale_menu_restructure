@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- ============================================================ -->
-    <!-- PASO 1: OCULTAR el menú padre "Orders" original              -->
-    <!-- Lo vaciamos de grupos para que no aparezca para nadie        -->
-    <!-- ============================================================ -->
+    <!-- Desactivar menú "Orders" original -->
     <record id="sale.sale_order_menu" model="ir.ui.menu">
         <field name="active" eval="False"/>
     </record>
-
-    <!-- ============================================================ -->
-    <!-- PASO 2: ACCIONES con dominio separado                        -->
-    <!-- ============================================================ -->
 
     <!-- Acción: Quotes (solo draft y sent) -->
     <record id="action_quotations_only" model="ir.actions.act_window">
@@ -23,10 +16,6 @@
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new quotation, the first step of a new sale!
-            </p>
-            <p>
-                Once the quotation is confirmed by the customer, it becomes a sales order.
-                You will be able to create an invoice and collect the payment.
             </p>
         </field>
     </record>
@@ -42,29 +31,20 @@
             <p class="o_view_nocontent_smiling_face">
                 No sales orders yet.
             </p>
-            <p>
-                Confirmed quotations become sales orders.
-                You can create invoices and track deliveries from here.
-            </p>
         </field>
     </record>
 
-    <!-- ============================================================ -->
-    <!-- PASO 3: MENÚS RAÍZ en Ventas                                 -->
-    <!-- ============================================================ -->
-
-    <!-- Menú raíz: Quotes -->
+    <!-- Quotes (1) → Holds (3 otro módulo) → Sales Orders (10) -->
     <menuitem id="menu_quotes_root"
               name="Quotes"
               parent="sale.sale_menu_root"
               action="action_quotations_only"
               sequence="1"/>
 
-    <!-- Menú raíz: Sales Orders -->
     <menuitem id="menu_sales_orders_root"
               name="Sales Orders"
               parent="sale.sale_menu_root"
               action="action_sales_orders_only"
-              sequence="2"/>
+              sequence="10"/>
 
 </odoo>
