@@ -13,7 +13,7 @@
 
     <!-- Customers en menú principal de Ventas -->
     <record id="action_sale_customers" model="ir.actions.act_window">
-        <field name="name">Customers</field>
+        <field name="name">Clientes</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">list,kanban,form,activity</field>
         <field name="domain">[('customer_rank', '&gt;', 0)]</field>
