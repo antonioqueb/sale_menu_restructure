@@ -11,12 +11,12 @@
               parent="sale.sale_menu_root"
               groups="sales_team.group_sale_manager"/>
 
-    <!-- Menú de Reportes para usuarios básicos (no managers) -->
+    <!-- Menú de Reportes para usuarios básicos -->
     <menuitem id="menu_sale_report_user"
               name="Reporting"
               parent="sale.sale_menu_root"
               sequence="90"
-              groups="sales_team.group_sale_salesman,!sales_team.group_sale_manager"/>
+              groups="sales_team.group_sale_salesman"/>
 
     <!-- Estado de Cuenta dentro del menú de reportes para usuarios básicos -->
     <menuitem id="menu_account_statement_user"
