@@ -6,10 +6,25 @@
               parent="sale.sale_menu_root"
               groups="sales_team.group_sale_manager"/>
 
-    <!-- Reporting: solo visible para administradores de ventas -->
+    <!-- Reporting: menú original solo visible para administradores de ventas -->
     <menuitem id="sale.menu_sale_report"
               parent="sale.sale_menu_root"
               groups="sales_team.group_sale_manager"/>
+
+    <!-- Menú de Reportes para usuarios básicos (no managers) -->
+    <menuitem id="menu_sale_report_user"
+              name="Reporting"
+              parent="sale.sale_menu_root"
+              sequence="90"
+              groups="sales_team.group_sale_salesman,!sales_team.group_sale_manager"/>
+
+    <!-- Estado de Cuenta dentro del menú de reportes para usuarios básicos -->
+    <menuitem id="menu_account_statement_user"
+              name="Estado de Cuenta"
+              parent="menu_sale_report_user"
+              action="account_statement_report.action_account_statement_wizard"
+              sequence="1"
+              groups="sales_team.group_sale_salesman"/>
 
     <!-- Customers en menú principal de Ventas -->
     <record id="action_sale_customers" model="ir.actions.act_window">
