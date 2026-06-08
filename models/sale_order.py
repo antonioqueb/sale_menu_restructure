@@ -5,12 +5,35 @@ from odoo import models, api
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        """
+        Si la orden se crea desde el menú "Sales Orders" (bandera de contexto
+        'create_confirmed_order'), nace ya confirmada: se ejecuta la lógica
+        completa de confirmación (action_confirm), sin pasar por cotización.
+        """
+        orders = super().create(vals_list)
+
+        if self.env.context.get('create_confirmed_order'):
+            for order in orders:
+                # Solo confirmamos órdenes en borrador y con líneas, para evitar
+                # confirmar borradores vacíos accidentalmente.
+                if order.state == 'draft' and order.order_line:
+                    order.with_context(skip_sale_order_redirect=True).action_confirm()
+
+        return orders
+
     def action_confirm(self):
         """
         Override para redirigir al usuario a la vista de Sales Orders
         después de confirmar una cotización.
         """
         res = super().action_confirm()
+
+        # Cuando la confirmación ocurre durante la creación de la orden
+        # (orden que nace confirmada), no redirigimos: el resultado se ignora.
+        if self.env.context.get('skip_sale_order_redirect'):
+            return res
 
         # Si la confirmación fue exitosa y estamos en la UI (no en batch/cron),
         # redirigimos al formulario de la orden dentro del menú Sales Orders
