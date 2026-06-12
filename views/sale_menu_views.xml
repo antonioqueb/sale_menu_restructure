@@ -47,4 +47,11 @@
               action="action_sales_orders_only"
               sequence="10"/>
 
+    <!-- Al abrir la app de Ventas se muestra Sales Orders por defecto
+         (acción directa en el menú raíz), sin alterar el orden de los
+         submenús en la barra. -->
+    <record id="sale.sale_menu_root" model="ir.ui.menu">
+        <field name="action" ref="action_sales_orders_only"/>
+    </record>
+
 </odoo>
