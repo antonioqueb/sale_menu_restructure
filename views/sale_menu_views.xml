@@ -6,6 +6,14 @@
         <field name="active" eval="False"/>
     </record>
 
+    <!-- Desactivar también el menú NATIVO "Quotations": su acción mezcla
+         cotizaciones y órdenes, y al re-entrar a la app el webclient cae al
+         primer submenú por secuencia — era este, causando que la regla
+         'siempre abrir en Sales Orders' se rompiera con pestañas abiertas. -->
+    <record id="sale.menu_sale_quotations" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
     <!-- Acción: Quotes (solo draft y sent) -->
     <record id="action_quotations_only" model="ir.actions.act_window">
         <field name="name">Quotes</field>
