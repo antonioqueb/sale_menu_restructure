@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70">
+  <defs>
+    <linearGradient id="qbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <linearGradient id="qsheet" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef2ff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Fondo app -->
+  <rect width="70" height="70" rx="14" fill="url(#qbg)"/>
+
+  <!-- Hoja de cotización con esquina doblada -->
+  <path d="M20 12h20l10 10v34a3 3 0 0 1-3 3H20a3 3 0 0 1-3-3V15a3 3 0 0 1 3-3z"
+        fill="url(#qsheet)"/>
+  <path d="M40 12v10h10z" fill="#c7d5f2"/>
+
+  <!-- Renglones -->
+  <rect x="22" y="29" width="22" height="3" rx="1.5" fill="#3b82f6" opacity="0.9"/>
+  <rect x="22" y="36" width="22" height="3" rx="1.5" fill="#3b82f6" opacity="0.6"/>
+  <rect x="22" y="43" width="14" height="3" rx="1.5" fill="#3b82f6" opacity="0.4"/>
+
+  <!-- Sello de precio -->
+  <circle cx="46" cy="49" r="9.5" fill="#fbbf24" stroke="#92600a" stroke-width="1.4"/>
+  <text x="46" y="53.6" font-family="Arial, Helvetica, sans-serif" font-size="13"
+        font-weight="bold" text-anchor="middle" fill="#7c4a03">$</text>
+</svg>

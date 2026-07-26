@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Sale Menu Restructure',
-    'version': '19.0.1.1.0',
+    'version': '19.0.1.2.0',
     'category': 'Sales/Sales',
     'summary': 'Reestructura menús de Ventas: Quotes y Sales Orders como raíz, oculta Productos y Reportes a no-admin',
     'description': """
@@ -13,7 +13,9 @@
     """,
     'author': 'Alphaqueb Consulting',
     'website': 'https://alphaqueb.com',
-    'depends': ['sale'],
+    # stock_lot_dimensions: la app raíz "Holds" apunta a su acción de
+    # órdenes de reserva (action_stock_lot_hold_order).
+    'depends': ['sale', 'stock_lot_dimensions'],
     'data': [
         'security/sale_menu_groups.xml',
         'views/sale_menu_views.xml',

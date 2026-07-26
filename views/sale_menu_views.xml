@@ -62,4 +62,22 @@
         <field name="action" ref="action_sales_orders_only"/>
     </record>
 
+    <!-- ============================================================= -->
+    <!-- Apps raíz independientes: Quotes y Holds con ícono propio.     -->
+    <!-- Acceso de un clic desde el lanzador de aplicaciones, sin pasar -->
+    <!-- por los submenús de Ventas (que se conservan intactos).        -->
+    <!-- ============================================================= -->
+
+    <menuitem id="menu_quotes_app"
+              name="Quotes"
+              action="action_quotations_only"
+              web_icon="sale_menu_restructure,static/description/icon_quotes.svg"
+              sequence="6"/>
+
+    <menuitem id="menu_holds_app"
+              name="Holds"
+              action="stock_lot_dimensions.action_stock_lot_hold_order"
+              web_icon="sale_menu_restructure,static/description/icon_holds.svg"
+              sequence="7"/>
+
 </odoo>
