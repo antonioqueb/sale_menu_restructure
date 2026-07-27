@@ -19,7 +19,16 @@ class SaleOrder(models.Model):
                 # Solo confirmamos órdenes en borrador y con líneas, para evitar
                 # confirmar borradores vacíos accidentalmente.
                 if order.state == 'draft' and order.order_line:
-                    order.with_context(skip_sale_order_redirect=True).action_confirm()
+                    # create_confirmed_order=False: dentro de action_confirm,
+                    # sale_stone_selection hace order.copy() para el respaldo
+                    # de cotización y ese copy HEREDA el contexto — volvía a
+                    # entrar aquí y a confirmar el respaldo (folio V/ quemado y
+                    # COT/ fantasma), dependiendo de un guard de otro módulo
+                    # para no recursar.
+                    order.with_context(
+                        skip_sale_order_redirect=True,
+                        create_confirmed_order=False,
+                    ).action_confirm()
 
         return orders
 
