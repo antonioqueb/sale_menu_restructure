@@ -47,13 +47,15 @@
               name="Quotes"
               parent="sale.sale_menu_root"
               action="action_quotations_only"
-              sequence="1"/>
+              sequence="1"
+              groups="sales_team.group_sale_salesman"/>
 
     <menuitem id="menu_sales_orders_root"
               name="Sales Orders"
               parent="sale.sale_menu_root"
               action="action_sales_orders_only"
-              sequence="10"/>
+              sequence="10"
+              groups="sales_team.group_sale_salesman"/>
 
     <!-- Al abrir la app de Ventas se muestra Sales Orders por defecto
          (acción directa en el menú raíz), sin alterar el orden de los
@@ -72,12 +74,14 @@
               name="Quotes"
               action="action_quotations_only"
               web_icon="sale_menu_restructure,static/description/icon_quotes.svg"
-              sequence="6"/>
+              sequence="6"
+              groups="sales_team.group_sale_salesman"/>
 
     <menuitem id="menu_holds_app"
               name="Holds"
               action="stock_lot_dimensions.action_stock_lot_hold_order"
               web_icon="sale_menu_restructure,static/description/icon_holds.svg"
-              sequence="7"/>
+              sequence="7"
+              groups="sales_team.group_sale_salesman"/>
 
 </odoo>
