@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
+from markupsafe import Markup
+
 from odoo import models, fields, api
+from odoo.exceptions import UserError
 
 
 class SaleOrder(models.Model):
@@ -45,6 +48,27 @@ class SaleOrder(models.Model):
             if getattr(order, 'x_is_quote_backup', False):
                 continue
             if not order.order_line.filtered(lambda l: not l.display_type):
+                continue
+            # CANDADOS DE AUTORIZACIÓN (precios bajos / descuento alto): si
+            # la confirmación va a tronar con ese UserError, NO se intenta
+            # confirmar — la orden SE GUARDA en borrador (31 ago 2026).
+            # Antes el error reventaba el create/write completo y el
+            # vendedor perdía TODA la captura. La solicitud de autorización
+            # ya se creó sola al guardar (inventory_shopping_cart) y, al
+            # aprobarse, la orden se confirma automáticamente.
+            try:
+                if hasattr(order, '_check_seller_low_price_block'):
+                    order._check_seller_low_price_block("confirmar")
+                if hasattr(order, '_check_discount_authorization_block'):
+                    order._check_discount_authorization_block("confirmar")
+            except UserError:
+                auth = getattr(order, 'x_price_authorization_id', False)
+                ref = auth.name if (auth and auth.state == 'pending') else ''
+                order._message_log(body=Markup(
+                    '<p>⏸️ <b>Guardada sin confirmar</b>: requiere '
+                    'autorización%s. Al aprobarse, la orden se '
+                    'confirma sola.</p>'
+                ) % ((' (%s)' % ref) if ref else ''))
                 continue
             # create_confirmed_order=False: dentro de action_confirm,
             # sale_stone_selection hace order.copy() para el respaldo de
