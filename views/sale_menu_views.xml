@@ -79,7 +79,7 @@
 
     <menuitem id="menu_holds_app"
               name="Holds"
-              action="stock_lot_dimensions.action_stock_lot_hold_order"
+              action="stock_lot_dimensions.action_stock_lot_hold_order_open"
               web_icon="sale_menu_restructure,static/description/icon_holds.svg"
               sequence="7"
               groups="sales_team.group_sale_salesman"/>
